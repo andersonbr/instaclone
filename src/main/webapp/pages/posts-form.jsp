@@ -32,6 +32,8 @@
 								<input type="text" id="usuario" class="form-control" placeholder="Usuário de acesso" />
 							</div>
 						</div>
+					</div>
+					<div class="form-group">
 						<div class="row">
 							<div class="col col-sm-6">
 								<input type="password" id="senha" class="form-control" placeholder="Senha" />
