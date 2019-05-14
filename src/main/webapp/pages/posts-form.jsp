@@ -15,44 +15,44 @@
 			<div class="container-fluid">
 				<form>
 					<div class="form-group">
-						<label>Filtros MASTER</label>
-						<div class="row">
-							<div class="col">
-								<input type="text" id="codFilaMaster" class="form-control" placeholder="Código do registro de agenda cirúrgica (MASTER)" autofocus="autofocus" />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Filtros AGHU</label>
+						<label>Dados pessoais</label>
 						<div class="row">
 							<div class="col col-sm-4">
-								<input type="text" id="codProntuarioAghu" class="form-control" placeholder="Prontuário paciente (AGHU)" />
+								<input type="text" id="email" class="form-control" placeholder="E-mail" />
 							</div>
 							<div class="col col-sm-8">
-								<input type="text" id="nomePaciente" class="form-control" placeholder="Nome do paciente (AGHU)" />
+								<input type="text" id="nome" class="form-control" placeholder="Nome completo" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Filtros Unisus</label>
+						<label>Dado de acesso</label>
 						<div class="row">
 							<div class="col">
-								<input type="text" id="codFilaUnisus" class="form-control" placeholder="Código UNISUS para registro de agenda cirúrgica (UNISUS)" />
+								<input type="text" id="usuario" class="form-control" placeholder="Usuário de acesso" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="col col-sm-6">
+								<input type="password" id="senha" class="form-control" placeholder="Senha" />
+							</div>
+							<div class="col col-sm-6">
+								<input type="password" id="senhaRepeticao" class="form-control" placeholder="Confirmação de senha" />
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label>Intervalo de datas</label>
-						<div class="row">
-							<div class="col">
-								<input type="text" id="dtInicial" class="form-control" placeholder="Data inicial" />
-							</div>
-							<div class="col">
-								<input type="text" id="dtFinal" class="form-control" placeholder="Data final" />
-							</div>
-						</div>
-					</div>
-					<a class="btn btn-primary btn-block">Buscar</a>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label>Intervalo de datas</label> -->
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col"> -->
+<!-- 								<input type="text" id="dtInicial" class="form-control" placeholder="Data inicial" /> -->
+<!-- 							</div> -->
+<!-- 							<div class="col"> -->
+<!-- 								<input type="text" id="dtFinal" class="form-control" placeholder="Data final" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+					<button type="button" class="btn btn-primary">Buscar</button>
 				</form>
 			</div>
 			<!-- /.container-fluid -->
