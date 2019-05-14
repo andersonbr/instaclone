@@ -27,7 +27,7 @@ public class PostsServlet extends HttpServlet {
 		if (req.getRequestURI().equals("/posts/form")) {
 			res.setContentType("text/html");
 			res.setCharacterEncoding("UTF-8");
-			String nextJSP = "/pages/index.jsp";
+			String nextJSP = "/pages/posts-form.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			try {
 				dispatcher.forward(req, res);

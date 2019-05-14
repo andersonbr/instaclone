@@ -13,11 +13,6 @@
 		<jsp:include page="/WEB-INF/template/sidebar.jsp"></jsp:include>
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<h1>Instaclone</h1>
-				<a href="cadastrar-usuario.jsp">Cadastrar usuário</a> <br /> <a
-					href="postar.jsp">Postar foto</a> <br />
-
-				<hr />
 				<h3>Últimas postagens</h3>
 				<jsp:useBean id="dao"
 					class="br.com.shellcode.instaclone.dao.PostsDao" />
