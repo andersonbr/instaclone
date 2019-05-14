@@ -20,6 +20,7 @@ public class Posts {
 	private Pessoa pessoa;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
+	private String ext;
 
 	public Integer getId() {
 		return id;
@@ -43,5 +44,13 @@ public class Posts {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public String getExt() {
+		return ext;
+	}
+
+	public void setExt(String ext) {
+		this.ext = ext;
 	}
 }

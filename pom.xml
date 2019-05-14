@@ -9,6 +9,9 @@
 
 	<groupId>br.com.shellcode</groupId>
 	<artifactId>instaclone</artifactId>
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,7 +22,14 @@
 
 		<appengine.maven.plugin.version>2.0.0</appengine.maven.plugin.version>
 		<appengine.plugin.version>1.9.74</appengine.plugin.version>
+		<datanucleus.jpa.rdbms.version>5.2.1</datanucleus.jpa.rdbms.version>
+		<!-- <datanucleus.jpa.rdbms.version>5.1.9</datanucleus.jpa.rdbms.version> -->
 		<resteasy.version>3.6.3.Final</resteasy.version>
+		<resteasy.jaxrs.version>3.6.3.SP1</resteasy.jaxrs.version>
+		<!-- <resteasy.version>4.0.0.Final</resteasy.version> -->
+		<!-- <junit.version>3.1.0</junit.version> -->
+		<junit.version>4.12</junit.version>
+		<postgresql.version>42.2.5</postgresql.version>
 
 		<INSTANCE_CONNECTION_NAME>projetocen2:us-central1:instaclone</INSTANCE_CONNECTION_NAME>
 		<user>postgres</user>
@@ -44,7 +54,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.2</version>
+			<version>${postgresql.version}</version>
 		</dependency>
 
 		<dependency>
@@ -57,7 +67,7 @@
 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-accessplatform-jpa-rdbms</artifactId>
-			<version>5.1.9</version>
+			<version>${datanucleus.jpa.rdbms.version}</version>
 			<type>pom</type>
 		</dependency>
 		<dependency>
@@ -84,7 +94,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
-			<version>${resteasy.version}</version>
+			<version>${resteasy.jaxrs.version}</version>
 		</dependency>
 		<!-- Servlet pluggability support -->
 		<dependency>
@@ -147,19 +157,49 @@
 			<artifactId>appengine-api-1.0-sdk</artifactId>
 			<version>${appengine.plugin.version}</version>
 		</dependency>
+		<!-- storage -->
+		<dependency>
+			<groupId>com.google.appengine.tools</groupId>
+			<artifactId>appengine-gcs-client</artifactId>
+			<version>0.7</version>
+		</dependency>
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<!-- for hot reload of the web application -->
 		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>display-dependency-updates</goal>
+							<goal>display-plugin-updates</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>${appengine.maven.plugin.version}</version>
+				<configuration>
+					<projectId>projetocen2</projectId>
+					<version>1</version>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.datanucleus</groupId>
 				<artifactId>datanucleus-maven-plugin</artifactId>
@@ -179,39 +219,24 @@
 						</goals>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-api-jdo</artifactId>
+						<version>3.1.3</version>
+					</dependency>
+				</dependencies>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>display-dependency-updates</goal>
-							<goal>display-plugin-updates</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
 			<!-- <plugin> -->
-			<!-- <groupId>com.google.cloud.tools</groupId> -->
+			<!-- <groupId>com.google.appengine</groupId> -->
 			<!-- <artifactId>appengine-maven-plugin</artifactId> -->
-			<!-- <version>${appengine.maven.plugin.version}</version> -->
+			<!-- <version>${appengine.plugin.version}</version> -->
+			<!-- <configuration> -->
+			<!-- <appId>projetocen2</appId> -->
+			<!-- <version>1</version> -->
+			<!-- <enhancerApi>JPA</enhancerApi> -->
+			<!-- </configuration> -->
 			<!-- </plugin> -->
-
-			<plugin>
-				<groupId>com.google.appengine</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-				<version>${appengine.plugin.version}</version>
-				<configuration>
-					<appId>projetocen2</appId>
-<!-- 					<version>20190511t000001</version> -->
-					<version>1</version>
-					<enhancerApi>JPA</enhancerApi>
-				</configuration>
-			</plugin>
 
 		</plugins>
 	</build>

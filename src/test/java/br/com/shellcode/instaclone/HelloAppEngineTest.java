@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.shellcode.instaclone.servlet.tests.HelloAppEngine;
+
 public class HelloAppEngineTest {
 
   @Test

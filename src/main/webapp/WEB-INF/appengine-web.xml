@@ -5,16 +5,26 @@
 	<threadsafe>true</threadsafe>
 	<sessions-enabled>false</sessions-enabled>
 	<runtime>java8</runtime>
-
+	<static-files>
+		<include path="/favicon.ico"></include>
+		<include path="/**.ico"></include>
+		<include path="/**.html"></include>
+		<include path="/static/**"></include>
+		<include path="/static/**.jpg"></include>
+		<include path="/static/**.js"></include>
+		<include path="/static/**.css"></include>
+	</static-files>
 	<system-properties>
-<!-- 		<property name="java.util.logging.config.file" -->
-<!-- 			value="WEB-INF/logging.properties" /> -->
+		<!-- <property name="java.util.logging.config.file" -->
+		<!-- value="WEB-INF/logging.properties" /> -->
 		<property name="cloudsql"
 			value="jdbc:postgresql://google/instaclone?useSSL=false&amp;cloudSqlInstance=projetocen2:us-central1:instaclone&amp;socketFactoryArg=projetocen2:us-central1:instaclone&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=postgres&amp;password=java" />
-<!-- 		<property name="cloudsql" -->
-<!-- 			value="jdbc:postgresql://google/instaclone?useSSL=false&amp;socketFactoryArg=projetocen2:us-central1:instaclone&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=postgres&amp;password=java" /> -->
-<!-- 		<property name="cloudsql" -->
-<!-- 			value="jdbc:postgresql://google/${database}?useSSL=false&amp;socketFactoryArg=${INSTANCE_CONNECTION_NAME}&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=${user}&amp;password=${password}" /> -->
+		<!-- <property name="cloudsql" -->
+		<!-- value="jdbc:postgresql://google/instaclone?useSSL=false&amp;socketFactoryArg=projetocen2:us-central1:instaclone&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=postgres&amp;password=java" 
+			/> -->
+		<!-- <property name="cloudsql" -->
+		<!-- value="jdbc:postgresql://google/${database}?useSSL=false&amp;socketFactoryArg=${INSTANCE_CONNECTION_NAME}&amp;socketFactory=com.google.cloud.sql.postgres.SocketFactory&amp;user=${user}&amp;password=${password}" 
+			/> -->
 	</system-properties>
 
 </appengine-web-app>
