@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Inicial</title>
 <jsp:include page="/WEB-INF/template/head.jsp"></jsp:include>
 </head>
 <body class="sidebar-toggled">
@@ -13,7 +14,7 @@
 		<jsp:include page="/WEB-INF/template/sidebar.jsp"></jsp:include>
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<h3>Últimas postagens</h3>
+				<h3>Últimas postagens geral</h3>
 				<!-- 					<div class="form-group"> -->
 				<!-- 						<label>Intervalo de datas</label> -->
 				<!-- 						<div class="row"> -->
@@ -29,8 +30,20 @@
 					class="br.com.shellcode.instaclone.dao.PostsDao" />
 				<ul>
 					<c:forEach var="post" items="${dao.list()}">
-						<li>${post.id},&nbsp;${post.data}<br /> <img
-							src="/posts/${post.id}" class="postsimgs" /></li>
+						<li class="userPost" data-postid="${post.id}">
+							<div class="postDate">${post.data}</div>
+							<div class="postNick"><a href="/@${post.pessoa.nick}">@${post.pessoa.nick}</a></div>
+							<div class="postImg"><img src="/posts/${post.id}" class="postsimgs" /></div>
+							<div class="postDesc">${post.descricao}</div>
+							<div class="postButtons">
+								<button type="button" class="btlike btn btn-default btn-sm disabled" onclick="like(${post.id})">
+									<span class="fa fa-thumbs-up"></span> Curtir
+								</button>
+								<button type="button" class="btdislike btn btn-default btn-sm disabled" onclick="dislike(${post.id})">
+									<span class="fa fa-thumbs-down"></span> Descurtir
+								</button>
+							</div>
+						</li>
 					</c:forEach>
 				</ul>
 
@@ -39,7 +52,7 @@
 				<jsp:useBean id="daoUser"
 					class="br.com.shellcode.instaclone.dao.PessoaDao" />
 				<c:forEach var="p" items="${daoUser.list()}">
-		       ${p.id}: @${p.nick}, ${p.nome}<br />
+		       ${p.id}: <a href="/@${p.nick}">@${p.nick}</a>, ${p.nome}<br />
 				</c:forEach>
 			</div>
 			<!-- /.container-fluid -->

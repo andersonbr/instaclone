@@ -15,10 +15,17 @@ public class PostsDao extends AbstractGenericDao<Posts> {
 	}
 
 	public List<Posts> listEntre(Date dtInicio, Date dtFim) {
-		TypedQuery<Posts> q = getEm().createQuery("select p from Posts p where p.data between :inicio and :fim ORDER BY p.data DESC",
-				Posts.class);
+		TypedQuery<Posts> q = getEm().createQuery(
+				"select p from Posts p where p.data between :inicio and :fim ORDER BY p.data DESC", Posts.class);
 		q.setParameter("inicio", dtInicio);
 		q.setParameter("fim", dtFim);
+		return q.getResultList();
+	}
+
+	public List<Posts> postsDoUsuario(String profile) {
+		TypedQuery<Posts> q = getEm()
+				.createQuery("select p from Posts p WHERE p.pessoa.nick = :profile ORDER BY p.data DESC", Posts.class);
+		q.setParameter("profile", profile);
 		return q.getResultList();
 	}
 }

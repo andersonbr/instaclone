@@ -18,6 +18,7 @@
 <link href="/static/vendor/datatables/dataTables.bootstrap4.css"
 	rel="stylesheet" />
 <link href="/static/css/sb-admin.css" rel="stylesheet" />
+<link href="/static/css/instaclone.css" rel="stylesheet" />
 
 <!-- giggo -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/js/gijgo.min.js" type="text/javascript"></script>

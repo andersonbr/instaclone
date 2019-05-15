@@ -1,3 +1,6 @@
+window.like = function(id) {};
+window.dislike = function(id) {};
+
 (function($) {
   "use strict"; // Start of use strict
 
@@ -36,5 +39,16 @@
     }, 1000, 'easeInOutExpo');
     event.preventDefault();
   });
+
+  window.like = function(id) {
+	  console.log(id);
+	  $(".userPost[data-postid=" + id + "] .postButtons button").addClass("disabled");
+	  $(".userPost[data-postid=" + id + "] .postButtons button.btlike").removeClass("disabled");
+  };
+  window.dislike = function(id) {
+	  console.log(id);
+	  $(".userPost[data-postid=" + id + "] .postButtons button").addClass("disabled");
+	  $(".userPost[data-postid=" + id + "] .postButtons button.btdislike").removeClass("disabled");
+  };
 
 })(jQuery); // End of use strict

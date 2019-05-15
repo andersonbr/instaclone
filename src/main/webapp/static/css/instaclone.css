@@ -1,0 +1,27 @@
+.postButtons button.disabled {
+	color: black !important;
+	opacity: 0.35 !important;
+	cursor: pointer !important;
+}
+
+.postButtons button.btlike {
+	color: #007bff;
+	opacity: 1;
+}
+
+.postButtons button.btdislike {
+	color: #d44747;
+	opacity: 1;
+}
+
+.userPost {
+    padding-bottom: 20px;
+}
+
+.postsimgs {
+	max-width: 200px;
+	max-height: 200px;
+	padding: 10px;
+	border: 1px solid #b1b1b1;
+	margin: 5px;
+}
