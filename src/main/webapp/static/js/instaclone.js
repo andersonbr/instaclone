@@ -42,13 +42,31 @@ window.dislike = function(id) {};
 
   window.like = function(id) {
 	  console.log(id);
+	  var alreadyClicked = false;
+	  if ($(".userPost[data-postid=" + id + "] .postButtons button.btlike.disabled").length == 0) {
+		  alreadyClicked = true;
+	  }
 	  $(".userPost[data-postid=" + id + "] .postButtons button").addClass("disabled");
-	  $(".userPost[data-postid=" + id + "] .postButtons button.btlike").removeClass("disabled");
+	  if (!alreadyClicked) {
+		  // curtir
+		  $(".userPost[data-postid=" + id + "] .postButtons button.btlike").removeClass("disabled");
+	  } else {
+		  // cancelar
+	  }
   };
   window.dislike = function(id) {
 	  console.log(id);
+	  var alreadyClicked = false;
+	  if ($(".userPost[data-postid=" + id + "] .postButtons button.btdislike.disabled").length == 0) {
+		  alreadyClicked = true;
+	  }
 	  $(".userPost[data-postid=" + id + "] .postButtons button").addClass("disabled");
-	  $(".userPost[data-postid=" + id + "] .postButtons button.btdislike").removeClass("disabled");
+	  if (!alreadyClicked) {
+		  // descurtir
+		  $(".userPost[data-postid=" + id + "] .postButtons button.btdislike").removeClass("disabled");
+	  } else {
+		  // cancelar
+	  }
   };
 
 })(jQuery); // End of use strict
