@@ -2,6 +2,7 @@ package br.com.shellcode.instaclone.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,32 @@ public class PessoaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		res.getWriter().println("pessoa servlet: " + req.getRequestURI());
+		if (req.getRequestURI().equals("/pessoa/new")) {
+			res.setContentType("text/html");
+			res.setCharacterEncoding("UTF-8");
+			String nextJSP = "/pages/pessoas-form.jsp";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+			try {
+				dispatcher.forward(req, res);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
+		} else if (req.getRequestURI().equals("/pessoa/edit")) {
+			/**
+			 * verificar se está logado
+			 */
+			res.setContentType("text/html");
+			res.setCharacterEncoding("UTF-8");
+			String nextJSP = "/pages/pessoas-form.jsp";
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+			try {
+				dispatcher.forward(req, res);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
+		} else {
+			res.getWriter().println("posts servlet: " + req.getRequestURI());
+		}
 	}
 
 	@Override

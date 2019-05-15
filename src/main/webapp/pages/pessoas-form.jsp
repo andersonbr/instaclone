@@ -13,27 +13,42 @@
 		<jsp:include page="/WEB-INF/template/sidebar.jsp"></jsp:include>
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<form action="/posts/new" method="post"
-					enctype="multipart/form-data">
+				<form action="/pessoa/new" method="post">
 					<div class="form-group">
-						<label>Descrição da foto</label>
+						<label>Dados pessoais</label>
+						<div class="row">
+							<div class="col col-sm-4">
+								<input type="text" id="email" class="form-control"
+									placeholder="E-mail" />
+							</div>
+							<div class="col col-sm-8">
+								<input type="text" id="nome" class="form-control"
+									placeholder="Nome completo" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Dado de acesso</label>
 						<div class="row">
 							<div class="col">
-								<input type="text" multiple="multiple" id="descricao"
-									name="descricao" class="form-control"
-									placeholder="Descrição da foto" />
+								<input type="text" id="usuario" class="form-control"
+									placeholder="Usuário de acesso" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
-							<div class="col">
-								<input type="file" name="foto" id="foto" class="form-control"
-									placeholder="Foto" />
+							<div class="col col-sm-6">
+								<input type="password" id="senha" class="form-control"
+									placeholder="Senha" />
+							</div>
+							<div class="col col-sm-6">
+								<input type="password" id="senhaRepeticao" class="form-control"
+									placeholder="Confirmação de senha" />
 							</div>
 						</div>
 					</div>
-					<input type="submit" class="btn btn-primary" value="Postar" />
+					<button type="button" class="btn btn-primary">Cadastrar</button>
 				</form>
 			</div>
 			<!-- /.container-fluid -->

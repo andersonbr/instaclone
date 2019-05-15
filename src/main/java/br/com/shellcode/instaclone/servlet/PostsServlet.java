@@ -1,6 +1,7 @@
 package br.com.shellcode.instaclone.servlet;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import br.com.shellcode.instaclone.dao.PostsDao;
+import br.com.shellcode.instaclone.model.Pessoa;
 import br.com.shellcode.instaclone.model.Posts;
 import br.com.shellcode.instaclone.storage.StorageManager;
 
@@ -40,14 +43,18 @@ public class PostsServlet extends HttpServlet {
 			 */
 			String[] urlPath = req.getRequestURI().split("/");
 			if (urlPath.length == 3) {
-				Integer id = Integer.parseInt(urlPath[2]);
-				Posts post = dao.read(id);
-				if (post != null) {
-					res.setContentType("image/" + post.getExt());
-					StorageManager.readStream(res.getOutputStream(), "projetocen2.appspot.com",
-							post.getId() + "." + post.getExt());
-				} else {
-					res.getWriter().println("not found.");
+				try {
+					Integer id = Integer.parseInt(urlPath[2]);
+					Posts post = dao.read(id);
+					if (post != null) {
+						res.setContentType("image/" + post.getExt());
+						StorageManager.readStream(res.getOutputStream(), "projetocen2.appspot.com",
+								post.getId() + "." + post.getExt());
+					} else {
+						res.getWriter().println("not found.");
+					}
+				} catch (Exception e) {
+					res.getWriter().println("posts servlet (fail): " + req.getRequestURI());
 				}
 			} else {
 				res.getWriter().println("posts servlet: " + req.getRequestURI());
@@ -58,6 +65,27 @@ public class PostsServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		Part foto = request.getPart("foto");
+		String ext = null;
+		if (foto.getContentType().equals("image/png")) {
+			ext = "png";
+		} else if (foto.getContentType().equals("image/jpeg")) {
+			ext = "jpg";
+		}
+		if (ext != null) {
+			Pessoa pessoa = new Pessoa();
+			pessoa.setId(1);
+			Posts post = new Posts();
+			post.setData(new Date());
+			post.setExt(ext);
+			post.setPessoa(pessoa);
+			dao.create(post);
+			StorageManager.saveStream(foto.getInputStream(), "projetocen2.appspot.com", post.getId() + "." + ext);
+		} else {
+			res.getWriter().println("falha: " + req.getRequestURI() + ", " + foto.getContentType());
+		}
 		super.doPost(request, response);
 	}
 

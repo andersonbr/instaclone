@@ -14,6 +14,17 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<h3>Últimas postagens</h3>
+				<!-- 					<div class="form-group"> -->
+				<!-- 						<label>Intervalo de datas</label> -->
+				<!-- 						<div class="row"> -->
+				<!-- 							<div class="col"> -->
+				<!-- 								<input type="text" id="dtInicial" class="form-control" placeholder="Data inicial" /> -->
+				<!-- 							</div> -->
+				<!-- 							<div class="col"> -->
+				<!-- 								<input type="text" id="dtFinal" class="form-control" placeholder="Data final" /> -->
+				<!-- 							</div> -->
+				<!-- 						</div> -->
+				<!-- 					</div> -->
 				<jsp:useBean id="dao"
 					class="br.com.shellcode.instaclone.dao.PostsDao" />
 				<ul>
