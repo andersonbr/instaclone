@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="instaclone">
+		<class>br.com.shellcode.instaclone.model.Authentication</class>
 		<class>br.com.shellcode.instaclone.model.Pessoa</class>
 		<class>br.com.shellcode.instaclone.model.Posts</class>
 		<exclude-unlisted-classes />

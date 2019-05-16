@@ -19,6 +19,7 @@ import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
 import com.google.appengine.tools.cloudstorage.RetryParams;
 
 public class StorageManager {
+	public static final String DEFAULT_BUCKET = "projetocen2.appspot.com";
 	private static boolean SERVE_USING_BLOBSTORE_API = false;
 	private static final GcsService gcsService = GcsServiceFactory.createGcsService(new RetryParams.Builder()
 			.initialRetryDelayMillis(10).retryMaxAttempts(10).totalRetryPeriodMillis(15000).build());

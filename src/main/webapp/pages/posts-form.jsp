@@ -5,6 +5,12 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/template/head.jsp"></jsp:include>
+<style type="text/css">
+	.btselect {
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+</style>
 </head>
 <body class="sidebar-toggled">
 	<jsp:include page="/WEB-INF/template/topmenu.jsp"></jsp:include>
@@ -21,7 +27,7 @@
 								<label for="foto">Foto</label>
 								<div class="input-group">
 									<label class="input-group-btn">
-										<span class="btn btn-primary">
+										<span class="btn btn-primary btselect">
 											Selecionar <input type="file" style="display: none;" id="foto" aria-describedby="fotoHelp" accept="image/jpeg,image/png" name="foto">
 										</span>
 									</label> <input id="fotoname" type="text" class="form-control" readonly="readonly">

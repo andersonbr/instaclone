@@ -29,6 +29,32 @@ public class PostsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	PostsDao dao = new PostsDao();
+	Pessoa pessoaAutenticada = null;
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		boolean authorized = false;
+		pessoaAutenticada = (Pessoa) req.getAttribute("autenticado");
+		if (pessoaAutenticada != null) {
+			authorized = true;
+		}
+
+		/**
+		 * nao são páginas seguras (ex, fotos)
+		 */
+		if (!authorized && !req.getRequestURI().equals("/posts/form") && !req.getMethod().equalsIgnoreCase("post")) {
+			authorized = true;
+		}
+
+		/**
+		 * usuario autenticado ou a pagina não precisa de autenticacao
+		 */
+		if (authorized) {
+			super.service(req, resp);
+		} else {
+			resp.sendRedirect("/auth/form");
+		}
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -56,7 +82,7 @@ public class PostsServlet extends HttpServlet {
 					Posts post = dao.read(id);
 					if (post != null) {
 						res.setContentType("image/" + post.getExt());
-						StorageManager.readStream(res.getOutputStream(), "projetocen2.appspot.com",
+						StorageManager.readStream(res.getOutputStream(), StorageManager.DEFAULT_BUCKET,
 								post.getId() + "." + post.getExt());
 					} else {
 						res.getWriter().println("not found.");
@@ -84,17 +110,19 @@ public class PostsServlet extends HttpServlet {
 		}
 		if (ext != null) {
 			EntityManager em = EMF.get().createEntityManager();
-			Pessoa pessoa = em.find(Pessoa.class, 1);
 			Posts post = new Posts();
 			post.setData(new Date());
 			post.setExt(ext);
-			post.setPessoa(pessoa);
+			post.setPessoa(pessoaAutenticada);
 			post.setDescricao(req.getParameter("descricao"));
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
 			em.persist(post);
 			tx.commit();
-			StorageManager.saveStream(foto.getInputStream(), "projetocen2.appspot.com", post.getId() + "." + ext);
+			if (post.getId() != null) {
+				StorageManager.saveStream(foto.getInputStream(), StorageManager.DEFAULT_BUCKET,
+						post.getId() + "." + ext);
+			}
 			String home = req.getContextPath() + "/home";
 			res.sendRedirect(home);
 		} else {
