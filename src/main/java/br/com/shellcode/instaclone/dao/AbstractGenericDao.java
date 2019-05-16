@@ -28,13 +28,12 @@ import javax.validation.Validator;
 public abstract class AbstractGenericDao<T> implements GenericDao<T> {
 
 	@Inject
-	private EntityManager em;
+	private EntityManager em = EMF.get().createEntityManager();
 
 	@Inject
 	private Validator validator;
 
 	public EntityManager getEm() {
-		em = EMF.get().createEntityManager();
 		return em;
 	}
 

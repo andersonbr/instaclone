@@ -57,15 +57,15 @@ public class AuthServlet extends HttpServlet {
 		String user = req.getParameter("username");
 		String password = req.getParameter("password");
 		Pessoa pessoa = null;
+		PessoaDao pessoaDao = new PessoaDao();
 		if (user != null && password != null) {
-			PessoaDao pessoaDao = new PessoaDao();
 			pessoa = pessoaDao.buscaPessoaNickSenha(user, password);
 		}
 		if (pessoa != null) {
+			EntityManager em = pessoaDao.getEm();
 			Authentication auth = new Authentication();
 			auth.setPessoa(pessoa);
 			auth.setToken(token);
-			EntityManager em = EMF.get().createEntityManager();
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
 			em.persist(auth);

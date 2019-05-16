@@ -33,7 +33,8 @@ public class CookieUtils {
 		} else {
 			cookie = new Cookie(name, value);
 		}
-		cookie.setPath(request.getContextPath());
+		String path =  (request.getContextPath() == null || request.getContextPath().equals("")) ? "/" : request.getContextPath(); 
+		cookie.setPath(path);
 		cookie.setMaxAge(expiry);
 		cookie.setHttpOnly(httpOnly);
 		response.addCookie(cookie);
