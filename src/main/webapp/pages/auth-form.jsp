@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Autenticação</title>
+<jsp:include page="/WEB-INF/template/head.jsp"></jsp:include>
+
 <style type="text/css">
 .text-center {
     text-align: center !important;

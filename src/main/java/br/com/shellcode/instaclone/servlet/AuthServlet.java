@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.shellcode.instaclone.dao.EMF;
 import br.com.shellcode.instaclone.dao.PessoaDao;
 import br.com.shellcode.instaclone.model.Authentication;
 import br.com.shellcode.instaclone.model.Pessoa;
@@ -29,6 +28,9 @@ public class AuthServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+
+		// remover cookie
+		CookieUtils.deleteCookie(request, response, "AUTHTOKEN", true);
 
 		if (req.getParameter("error") != null && req.getParameter("error").equals("1")) {
 			req.setAttribute("erroMsg", "Usuário ou senha incorreta");

@@ -18,12 +18,12 @@
 						<label>Dados pessoais</label>
 						<div class="row">
 							<div class="col col-sm-4">
-								<input type="text" id="email" class="form-control"
-									placeholder="E-mail" />
+								<input type="text" id="email" class="form-control" name="email"
+									placeholder="E-mail" value="${(autenticado == null)?'':autenticado.email}" />
 							</div>
 							<div class="col col-sm-8">
-								<input type="text" id="nome" class="form-control"
-									placeholder="Nome completo" />
+								<input type="text" id="nome" class="form-control" name="nome"
+									placeholder="Nome completo" value="${(autenticado == null)?'':autenticado.nome}" />
 							</div>
 						</div>
 					</div>
@@ -31,16 +31,16 @@
 						<label>Dado de acesso</label>
 						<div class="row">
 							<div class="col">
-								<input type="text" id="usuario" class="form-control"
-									placeholder="Usuário de acesso" />
+								<input type="text" id="usuario" class="form-control" name="nick"
+									placeholder="Usuário de acesso" value="${(autenticado == null)?'':autenticado.nick}" />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="row">
 							<div class="col col-sm-6">
-								<input type="password" id="senha" class="form-control"
-									placeholder="Senha" />
+								<input type="password" id="senha" class="form-control" name="senha"
+									placeholder="Senha" value="${(autenticado == null)?'':autenticado.senha}" />
 							</div>
 							<div class="col col-sm-6">
 								<input type="password" id="senhaRepeticao" class="form-control"
@@ -48,7 +48,7 @@
 							</div>
 						</div>
 					</div>
-					<button type="button" class="btn btn-primary">Cadastrar</button>
+					<input type="submit" class="btn btn-primary" value="${edit?'Editar':'Cadastrar'}" />
 				</form>
 			</div>
 			<!-- /.container-fluid -->

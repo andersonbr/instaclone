@@ -20,8 +20,8 @@ import br.com.shellcode.instaclone.model.Pessoa;
 import br.com.shellcode.instaclone.model.Posts;
 import br.com.shellcode.instaclone.storage.StorageManager;
 
-@MultipartConfig(maxFileSize = 10 * 1024 * 1024, // max size for uploaded files
-		maxRequestSize = 20 * 1024 * 1024, // max size for multipart/form-data
+@MultipartConfig(maxFileSize = 50 * 1024 * 1024, // max size for uploaded files
+		maxRequestSize = 60 * 1024 * 1024, // max size for multipart/form-data
 		fileSizeThreshold = 5 * 1024 * 1024 // start writing to Cloud Storage after 5MB
 )
 @WebServlet(name = "PostsServlet", urlPatterns = { "/posts/*" })

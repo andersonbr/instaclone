@@ -2,13 +2,25 @@ package br.com.shellcode.instaclone.servlet;
 
 import java.io.IOException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
+import br.com.shellcode.instaclone.dao.EMF;
+import br.com.shellcode.instaclone.model.Pessoa;
+import br.com.shellcode.instaclone.storage.StorageManager;
+
+@MultipartConfig(maxFileSize = 50 * 1024 * 1024, // max size for uploaded files
+		maxRequestSize = 60 * 1024 * 1024, // max size for multipart/form-data
+		fileSizeThreshold = 5 * 1024 * 1024 // start writing to Cloud Storage after 5MB
+)
 @WebServlet(name = "PessoaServlet", urlPatterns = { "/pessoa/*" })
 public class PessoaServlet extends HttpServlet {
 
@@ -22,6 +34,7 @@ public class PessoaServlet extends HttpServlet {
 		if (req.getRequestURI().equals("/pessoa/new")) {
 			res.setContentType("text/html");
 			res.setCharacterEncoding("UTF-8");
+			req.setAttribute("edit", false);
 			String nextJSP = "/pages/pessoas-form.jsp";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
 			try {
@@ -30,17 +43,19 @@ public class PessoaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (req.getRequestURI().equals("/pessoa/edit")) {
-			/**
-			 * verificar se está logado
-			 */
-			res.setContentType("text/html");
-			res.setCharacterEncoding("UTF-8");
-			String nextJSP = "/pages/pessoas-form.jsp";
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-			try {
-				dispatcher.forward(req, res);
-			} catch (ServletException e) {
-				e.printStackTrace();
+			if (req.getAttribute("autenticado") != null) {
+				res.setContentType("text/html");
+				res.setCharacterEncoding("UTF-8");
+				req.setAttribute("edit", true);
+				String nextJSP = "/pages/pessoas-form.jsp";
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextJSP);
+				try {
+					dispatcher.forward(req, res);
+				} catch (ServletException e) {
+					e.printStackTrace();
+				}
+			} else {
+				res.sendRedirect("/home");
 			}
 		} else {
 			res.getWriter().println("posts servlet: " + req.getRequestURI());
@@ -48,9 +63,38 @@ public class PessoaServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		super.doPost(request, response);
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		Pessoa p = (Pessoa) req.getAttribute("autenticado");
+		String nome = req.getParameter("nome");
+		String nick = req.getParameter("nick");
+		String senha = req.getParameter("senha");
+		String email = req.getParameter("email");
+		Part foto = req.getPart("foto");
+
+		EntityManager em = EMF.get().createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Pessoa pessoa = null;
+		if (p != null) {
+			// editar
+			pessoa = em.find(Pessoa.class, p.getId());
+		} else {
+			// novo
+			pessoa = new Pessoa();
+		}
+		pessoa.setEmail(email);
+		pessoa.setNick(nick);
+		pessoa.setSenha(senha);
+		pessoa.setNome(nome);
+		em.persist(pessoa);
+		tx.commit();
+		if (foto.getSize() > 0 && pessoa.getId() != null) {
+			StorageManager.saveStream(foto.getInputStream(), StorageManager.DEFAULT_BUCKET,
+					"profile_" + pessoa.getId() + ".jpg");
+		}
+		String home = req.getContextPath() + "/@" + nick;
+		res.sendRedirect(home);
 	}
 
 }

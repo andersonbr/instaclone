@@ -11,16 +11,6 @@
 <script src="/static/vendor/datatables/jquery.dataTables.js"></script>
 <script src="/static/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-<!-- Custom fonts for this template-->
-<link href="/static/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css" />
-<!-- Page level plugin CSS-->
-<link href="/static/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet" />
-<link href="/static/css/sb-admin.css" rel="stylesheet" />
-<link href="/static/css/instaclone.css" rel="stylesheet" />
-
 <!-- giggo -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <script src="https://unpkg.com/gijgo@1.9.13/js/messages/messages.pt-br.js" type="text/javascript"></script>

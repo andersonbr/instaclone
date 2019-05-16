@@ -19,10 +19,19 @@
 					class="br.com.shellcode.instaclone.dao.PostsDao" />
 				<ul>
 					<c:forEach var="post" items="${postagens}">
-						<li>${post.id},&nbsp;${post.data}<br /> <img
-							src="/posts/${post.id}" class="postsimgs" /><br />
-							${post.descricao}
-							</li>
+						<li class="userPost" data-postid="${post.id}">
+							<div class="postDate">${post.data}</div>
+							<div class="postImg"><img src="/posts/${post.id}" class="postsimgs" /></div>
+							<div class="postDesc">${post.descricao}</div>
+							<div class="postButtons">
+								<button type="button" class="btlike btn btn-default btn-sm disabled" onclick="like(${post.id})">
+									<span class="fa fa-thumbs-up"></span> Curtir
+								</button>
+								<button type="button" class="btdislike btn btn-default btn-sm disabled" onclick="dislike(${post.id})">
+									<span class="fa fa-thumbs-down"></span> Descurtir
+								</button>
+							</div>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
