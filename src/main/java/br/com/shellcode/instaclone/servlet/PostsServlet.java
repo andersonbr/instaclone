@@ -113,7 +113,8 @@ public class PostsServlet extends HttpServlet {
 			Posts post = new Posts();
 			post.setData(new Date());
 			post.setExt(ext);
-			post.setPessoa(pessoaAutenticada);
+			Pessoa p = em.find(Pessoa.class, pessoaAutenticada.getId());
+			post.setPessoa(p);
 			post.setDescricao(req.getParameter("descricao"));
 			EntityTransaction tx = em.getTransaction();
 			tx.begin();
