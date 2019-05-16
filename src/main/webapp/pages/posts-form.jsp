@@ -15,21 +15,29 @@
 			<div class="container-fluid">
 				<form action="/posts/new" method="post"
 					enctype="multipart/form-data">
-					<div class="form-group">
-						<label>Descrição da foto</label>
-						<div class="row">
-							<div class="col">
-								<input type="text" multiple="multiple" id="descricao"
-									name="descricao" class="form-control"
-									placeholder="Descrição da foto" />
+					<div class="row">
+						<div class="col">
+							<div class="form-group foto">
+								<label for="foto">Foto</label>
+								<div class="input-group">
+									<label class="input-group-btn">
+										<span class="btn btn-primary">
+											Selecionar <input type="file" style="display: none;" id="foto" aria-describedby="fotoHelp" accept="image/jpeg,image/png" name="foto">
+										</span>
+									</label> <input id="fotoname" type="text" class="form-control" readonly="readonly">
+								</div>
+								<small id="fotoHelp" class="form-text text-muted">
+									Selecionar o arquivo da foto.</small>
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="row">
-							<div class="col">
-								<input type="file" name="foto" id="foto" class="form-control"
-									placeholder="Foto" />
+					<div class="row">
+						<div class="col">
+							<div class="form-group descricao">
+								<label for="descricao">Descrição</label>
+								<input type="text" class="form-control" id="descricao" aria-describedby="descricaoHelp" placeholder="Digite uma descrição para a foto" name="descricao">
+								<small id="descricaoHelp" class="form-text text-muted">
+									Digite uma descrição para a foto.</small>
 							</div>
 						</div>
 					</div>
@@ -48,5 +56,10 @@
 
 	<!-- instaclone -->
 	<script src="/static/js/instaclone.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#foto")[0].onchange = function() { $("#fotoname").val(this.files[0].name) }
+		})
+	</script>
 </body>
 </html>

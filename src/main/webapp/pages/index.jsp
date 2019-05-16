@@ -6,6 +6,14 @@
 <head>
 <title>Inicial</title>
 <jsp:include page="/WEB-INF/template/head.jsp"></jsp:include>
+<style type="text/css">
+	.filtroDatas {
+		max-width: 600px;
+	}
+	.filtroDatas input.btn {
+		max-width: 100px;
+	}
+</style>
 </head>
 <body class="sidebar-toggled">
 	<jsp:include page="/WEB-INF/template/topmenu.jsp"></jsp:include>
@@ -15,21 +23,24 @@
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<h3>Últimas postagens geral</h3>
-				<!-- 					<div class="form-group"> -->
-				<!-- 						<label>Intervalo de datas</label> -->
-				<!-- 						<div class="row"> -->
-				<!-- 							<div class="col"> -->
-				<!-- 								<input type="text" id="dtInicial" class="form-control" placeholder="Data inicial" /> -->
-				<!-- 							</div> -->
-				<!-- 							<div class="col"> -->
-				<!-- 								<input type="text" id="dtFinal" class="form-control" placeholder="Data final" /> -->
-				<!-- 							</div> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<jsp:useBean id="dao"
-					class="br.com.shellcode.instaclone.dao.PostsDao" />
+				<form method="get" action="/home">
+					<div class="form-group filtroDatas">
+						<label>Intervalo de datas</label>
+						<div class="row">
+							<div class="col">
+								<input type="text" id="dtInicial" name="dtInicial" class="form-control" placeholder="Data inicial" value="${dataInicial}" />
+							</div>
+							<div class="col">
+								<input type="text" id="dtFinal" name="dtFinal" class="form-control" placeholder="Data final" value="${dataFinal}" />
+							</div>
+							<div class="col">
+								<input type="submit" value="Buscar" class="btn btn-primary btn-block" />
+							</div>
+						</div>
+					</div>
+				</form>
 				<ul>
-					<c:forEach var="post" items="${dao.list()}">
+					<c:forEach var="post" items="${postagens}">
 						<li class="userPost" data-postid="${post.id}">
 							<div class="postDate">${post.data}</div>
 							<div class="postNick"><a href="/@${post.pessoa.nick}">@${post.pessoa.nick}</a></div>
@@ -67,5 +78,29 @@
 
 	<!-- instaclone -->
 	<script src="/static/js/instaclone.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+			$('#dtInicial').datepicker({
+				locale: 'pt-br',
+				format: 'dd/mm/yyyy',
+		        uiLibrary: 'bootstrap4',
+		        iconsLibrary: 'fontawesome',
+		        maxDate: function () {
+		            return $('#dtFinal').val() == "" ? today : $('#dtFinal').val();
+		        }
+		    });
+		    $('#dtFinal').datepicker({
+				locale: 'pt-br',
+				format: 'dd/mm/yyyy',
+		        uiLibrary: 'bootstrap4',
+		        iconsLibrary: 'fontawesome',
+		        minDate: function () {
+		            return $('#dtInicial').val();
+		        },
+		        maxDate: today
+		    });
+		})
+	</script>
 </body>
 </html>
