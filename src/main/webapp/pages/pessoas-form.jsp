@@ -19,7 +19,8 @@
 		<jsp:include page="/WEB-INF/template/sidebar.jsp"></jsp:include>
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<form action="/pessoa/new" method="post">
+				<form action="/pessoa/new" method="post"
+					enctype="multipart/form-data">
 					<div class="form-group">
 						<label>Dados pessoais</label>
 						<div class="row">
@@ -62,7 +63,7 @@
 									<div class="input-group">
 										<label class="input-group-btn">
 											<span class="btn btn-primary btselect">
-												Selecionar <input type="file" style="display: none;" id="foto" aria-describedby="fotoHelp" accept="image/jpeg,image/png" name="foto">
+												Selecionar <input type="file" style="display: none;" id="foto" aria-describedby="fotoHelp" accept="image/jpeg" name="foto">
 											</span>
 										</label> <input id="fotoname" type="text" class="form-control" readonly="readonly">
 									</div>
