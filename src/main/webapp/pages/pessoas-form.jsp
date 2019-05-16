@@ -5,6 +5,12 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/template/head.jsp"></jsp:include>
+<style type="text/css">
+	.btselect {
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+</style>
 </head>
 <body class="sidebar-toggled">
 	<jsp:include page="/WEB-INF/template/topmenu.jsp"></jsp:include>
@@ -44,7 +50,25 @@
 							</div>
 							<div class="col col-sm-6">
 								<input type="password" id="senhaRepeticao" class="form-control"
-									placeholder="Confirmação de senha" />
+									placeholder="Confirmação de senha" value="${(autenticado == null)?'':autenticado.senha}" />
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col">
+								<div class="form-group foto">
+									<label for="foto">Foto</label>
+									<div class="input-group">
+										<label class="input-group-btn">
+											<span class="btn btn-primary btselect">
+												Selecionar <input type="file" style="display: none;" id="foto" aria-describedby="fotoHelp" accept="image/jpeg,image/png" name="foto">
+											</span>
+										</label> <input id="fotoname" type="text" class="form-control" readonly="readonly">
+									</div>
+									<small id="fotoHelp" class="form-text text-muted">
+										Selecionar o arquivo da foto.</small>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -63,5 +87,10 @@
 
 	<!-- instaclone -->
 	<script src="/static/js/instaclone.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#foto")[0].onchange = function() { $("#fotoname").val(this.files[0].name) }
+		})
+	</script>
 </body>
 </html>
