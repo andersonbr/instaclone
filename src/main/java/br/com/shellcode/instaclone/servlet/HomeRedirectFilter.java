@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.shellcode.instaclone.util.SecurityUtils;
+
 @WebFilter(asyncSupported = true, urlPatterns = { "/*" })
 public class HomeRedirectFilter implements Filter {
 
@@ -38,6 +40,7 @@ public class HomeRedirectFilter implements Filter {
 			if (m.find()) {
 				String profile = m.group(1);
 				String profileServlet = "/profile/" + profile;
+				SecurityUtils.processSecurity(req);
 				RequestDispatcher dispatcher = req.getRequestDispatcher(profileServlet);
 				try {
 					dispatcher.forward(req, res);

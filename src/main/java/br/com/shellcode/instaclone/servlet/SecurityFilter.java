@@ -9,14 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.shellcode.instaclone.dao.AuthenticationDao;
-import br.com.shellcode.instaclone.model.Authentication;
-import br.com.shellcode.instaclone.model.Pessoa;
-import br.com.shellcode.instaclone.util.CookieUtils;
+import br.com.shellcode.instaclone.util.SecurityUtils;
 
 @WebFilter(asyncSupported = true, urlPatterns = { "/*" })
 public class SecurityFilter implements Filter {
@@ -31,20 +27,7 @@ public class SecurityFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 
-		/**
-		 * Pessoa autenticada
-		 */
-		Pessoa pessoa = null;
-		Cookie cookie = CookieUtils.getCookie(req, "AUTHTOKEN");
-		if (cookie != null) {
-			String token = cookie.getValue();
-			AuthenticationDao authDao = new AuthenticationDao();
-			Authentication auth = authDao.buscaAutenticacaoPorToken(token);
-			if (auth != null) {
-				pessoa = auth.getPessoa();
-			}
-		}
-		req.setAttribute("autenticado", pessoa);
+		SecurityUtils.processSecurity(req);
 		chain.doFilter(req, res);
 	}
 
