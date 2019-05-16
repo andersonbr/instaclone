@@ -33,7 +33,7 @@ public class JPAServlet extends HttpServlet {
 					Pessoa newPessoa = new Pessoa();
 					newPessoa.setEmail("andersonbr@gmail.com");
 					newPessoa.setNome("Anderson Bezerra Calixto");
-					newPessoa.setFoto("foto.jpg");
+					newPessoa.setFoto(true);
 					newPessoa.setSenha("123");
 					em.persist(newPessoa);
 				}

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.shellcode.instaclone.dao.PessoaDao;
 import br.com.shellcode.instaclone.dao.PostsDao;
 
 @WebServlet(name = "ProfileServlet", urlPatterns = { "/profile/*" })
@@ -33,8 +34,9 @@ public class ProfileServlet extends HttpServlet {
 			Matcher m = p.matcher(req.getRequestURI());
 			if (m.find()) {
 				String profile = m.group(1);
-				req.setAttribute("profile", profile);
 				PostsDao postsDao = new PostsDao();
+				PessoaDao pessoaDao = new PessoaDao();
+				req.setAttribute("profile", pessoaDao.buscaPessoaPorNick(profile));
 				req.setAttribute("postagens", postsDao.postsDoUsuario(profile));
 				RequestDispatcher dispatcher = req.getRequestDispatcher(nextJSP);
 				try {

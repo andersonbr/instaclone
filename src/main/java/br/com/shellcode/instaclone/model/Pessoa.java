@@ -19,7 +19,7 @@ public class Pessoa {
 	private String nick;
 	private String senha;
 	private String email;
-	private String foto;
+	private Boolean foto = false;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "pessoa")
@@ -65,11 +65,11 @@ public class Pessoa {
 		this.email = email;
 	}
 
-	public String getFoto() {
+	public Boolean getFoto() {
 		return foto;
 	}
 
-	public void setFoto(String foto) {
+	public void setFoto(Boolean foto) {
 		this.foto = foto;
 	}
 

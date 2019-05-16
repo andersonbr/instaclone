@@ -4,8 +4,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>@${profile}</title>
+<title>@${profile.nick}</title>
 <jsp:include page="/WEB-INF/template/head.jsp"></jsp:include>
+<style type="text/css">
+.user {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.foto {
+  background-image: url('/profilepicture/${profile.id}');
+}
+</style>
 </head>
 <body class="sidebar-toggled">
 	<jsp:include page="/WEB-INF/template/topmenu.jsp"></jsp:include>
@@ -14,7 +29,8 @@
 		<jsp:include page="/WEB-INF/template/sidebar.jsp"></jsp:include>
 		<div id="content-wrapper">
 			<div class="container-fluid">
-				<h3>@${profile}</h3>
+				<h3>@${profile.nick}</h3>
+				<div class="user foto"></div>
 				<jsp:useBean id="dao"
 					class="br.com.shellcode.instaclone.dao.PostsDao" />
 				<ul>

@@ -17,4 +17,15 @@ public class PessoaDao extends AbstractGenericDao<Pessoa> {
 		}
 		return res;
 	}
+
+	public Pessoa buscaPessoaPorNick(String user) {
+		TypedQuery<Pessoa> q = getEm().createQuery("select p from Pessoa p where p.nick = :username", Pessoa.class);
+		q.setParameter("username", user);
+		Pessoa res = null;
+		try {
+			res = q.getSingleResult();
+		} catch (Exception e) {
+		}
+		return res;
+	}
 }

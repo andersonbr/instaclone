@@ -87,6 +87,9 @@ public class PessoaServlet extends HttpServlet {
 		if (nick != null && nick.trim().length() > 0) pessoa.setNick(nick);
 		if (senha != null && senha.trim().length() > 0) pessoa.setSenha(senha);
 		if (email != null && email.trim().length() > 0) pessoa.setEmail(email);
+		if (foto.getSize() > 0) {
+			pessoa.setFoto(true);
+		}
 		em.persist(pessoa);
 		tx.commit();
 		if (foto.getSize() > 0 && pessoa.getId() != null) {
