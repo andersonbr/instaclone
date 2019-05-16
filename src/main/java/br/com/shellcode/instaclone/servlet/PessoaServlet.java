@@ -31,7 +31,7 @@ public class PessoaServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		if (req.getRequestURI().equals("/pessoa/new")) {
+		if (req.getRequestURI().equals("/pessoa/form")) {
 			res.setContentType("text/html");
 			res.setCharacterEncoding("UTF-8");
 			req.setAttribute("edit", false);
