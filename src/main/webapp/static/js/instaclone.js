@@ -50,8 +50,10 @@ window.dislike = function(id) {};
 	  if (!alreadyClicked) {
 		  // curtir
 		  $(".userPost[data-postid=" + id + "] .postButtons button.btlike").removeClass("disabled");
+		  $.post("/rest/curtir/set/" + id + "/t", {}, (res) => { console.log(res); })
 	  } else {
 		  // cancelar
+		  $.post("/rest/curtir/set/" + id + "/n", {}, (res) => { console.log(res); })
 	  }
   };
   window.dislike = function(id) {
@@ -64,9 +66,19 @@ window.dislike = function(id) {};
 	  if (!alreadyClicked) {
 		  // descurtir
 		  $(".userPost[data-postid=" + id + "] .postButtons button.btdislike").removeClass("disabled");
+		  $.post("/rest/curtir/set/" + id + "/f", {}, (res) => { console.log(res); })
 	  } else {
 		  // cancelar
+		  $.post("/rest/curtir/set/" + id + "/n", {}, (res) => { console.log(res); })
 	  }
   };
+  $(".userPost").each((i,e) => {
+  	var id = ($(e).data("postid"));
+  	$.get("/rest/curtir/status/" + id, (res) => {
+  		if(res.curtir) {
+  			$(".userPost[data-postid=" + res.foto + "] .btlike").removeClass("disabled");
+  		}
+  	});
+  });
 
 })(jQuery); // End of use strict

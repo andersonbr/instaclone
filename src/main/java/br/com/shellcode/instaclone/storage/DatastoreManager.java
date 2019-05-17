@@ -18,13 +18,15 @@ public class DatastoreManager {
 		try {
 			return datastore.get(key);
 		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
 		}
 		return null;
 	}
 
 	public static Key genKey(String entity, String key) {
-		Key k = KeyFactory.createKey(entity, key);
-		return k;
+		return KeyFactory.createKey(entity, key);
+	}
+
+	public static void delete(Key key) {
+		datastore.delete(key);
 	}
 }

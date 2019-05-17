@@ -13,6 +13,7 @@ public class Config extends Application {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(PessoaRest.class);
 		classes.add(PostsRest.class);
+		classes.add(CurtirRest.class);
 		return classes;
 	}
 }

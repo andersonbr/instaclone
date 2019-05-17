@@ -26,4 +26,20 @@ public class SecurityUtils {
 		if (req.getAttribute("autenticado") == null)
 			req.setAttribute("autenticado", pessoa);
 	}
+
+	public static Pessoa checkAuthJaxRS(javax.ws.rs.core.Cookie cookie) {
+		/**
+		 * Pessoa autenticada
+		 */
+		Pessoa pessoa = null;
+		if (cookie != null && cookie.getValue() == null) {
+			String token = cookie.getValue();
+			AuthenticationDao authDao = new AuthenticationDao();
+			Authentication auth = authDao.buscaAutenticacaoPorToken(token);
+			if (auth != null) {
+				pessoa = auth.getPessoa();
+			}
+		}
+		return pessoa;
+	}
 }
