@@ -76,7 +76,7 @@ public class AuthServlet extends HttpServlet {
 
 			// definir Cookie
 			int hora = 60 * 60;
-			CookieUtils.setCookie(request, response, "AUTHTOKEN", token, 24 * hora, true);
+			CookieUtils.setCookie(request, response, "AUTHTOKEN", token, 24 * hora, false);
 			res.sendRedirect("/home");
 		} else {
 			res.sendRedirect("/auth/form?error=1");

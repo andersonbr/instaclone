@@ -20,7 +20,7 @@ import br.com.shellcode.instaclone.util.SecurityUtils;
 
 @Path("/curtir")
 public class CurtirRest {
-
+	
 	@GET
 	@Path("/status/{postId}")
 	@Produces(MediaType.APPLICATION_JSON)

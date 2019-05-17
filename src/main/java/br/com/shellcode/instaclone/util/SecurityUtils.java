@@ -32,7 +32,7 @@ public class SecurityUtils {
 		 * Pessoa autenticada
 		 */
 		Pessoa pessoa = null;
-		if (cookie != null && cookie.getValue() == null) {
+		if (cookie != null && cookie.getValue() != null) {
 			String token = cookie.getValue();
 			AuthenticationDao authDao = new AuthenticationDao();
 			Authentication auth = authDao.buscaAutenticacaoPorToken(token);
