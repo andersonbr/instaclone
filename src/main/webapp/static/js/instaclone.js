@@ -75,8 +75,10 @@ window.dislike = function(id) {};
   $(".userPost").each((i,e) => {
   	var id = ($(e).data("postid"));
   	$.get("/rest/curtir/status/" + id, (res) => {
-  		if(res.curtir) {
+  		if(res.curtir === true) {
   			$(".userPost[data-postid=" + res.foto + "] .btlike").removeClass("disabled");
+  		} else if(res.curtir === false) {
+  			$(".userPost[data-postid=" + res.foto + "] .btdislike").removeClass("disabled");
   		}
   	});
   });
